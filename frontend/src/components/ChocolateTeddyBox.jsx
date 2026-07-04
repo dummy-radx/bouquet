@@ -8,77 +8,155 @@ const ChocolateSVG = ({ type }) => {
     case 'milk':
       return (
         <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          {/* Base paper cup */}
-          <path d="M12 40 L16 48 L44 48 L48 40" fill="#cfab7a" stroke="#a07d4c" strokeWidth="1" />
-          <path d="M10 40 Q30 43 50 40" stroke="#a07d4c" strokeWidth="2" fill="none" />
-          {/* Truffle ball */}
-          <circle cx="30" cy="28" r="18" fill="#5D4037" />
-          {/* White drizzle */}
-          <path d="M16 22 Q30 18 44 26" stroke="#FFFDD0" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-          <path d="M18 29 Q30 25 42 33" stroke="#FFFDD0" strokeWidth="2" fill="none" strokeLinecap="round" />
+          <defs>
+            <radialGradient id="milkChoc" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stopColor="#A1887F" />
+              <stop offset="60%" stopColor="#5D4037" />
+              <stop offset="100%" stopColor="#3E2723" />
+            </radialGradient>
+            <linearGradient id="cupGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#FFE082" />
+              <stop offset="100%" stopColor="#FFA000" />
+            </linearGradient>
+          </defs>
+          {/* Pleated paper cup wrapper */}
+          <path d="M12 40 L16 48 L44 48 L48 40" fill="url(#cupGrad)" stroke="#E65100" strokeWidth="1" />
+          <path d="M10 40 Q30 43 50 40" stroke="#E65100" strokeWidth="1.5" fill="none" />
+          {/* Truffle ball with 3D gradient */}
+          <circle cx="30" cy="28" r="18" fill="url(#milkChoc)" />
+          {/* Creamy white drizzle with drop-shadow effect */}
+          <path d="M16 22 Q30 18 44 26" stroke="#FFFFFF" strokeWidth="3" fill="none" strokeLinecap="round" opacity="0.9" />
+          <path d="M18 29 Q30 25 42 33" stroke="#FFFDD0" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.8" />
         </svg>
       )
     case 'dark':
       return (
         <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="darkChoc" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stopColor="#4E342E" />
+              <stop offset="70%" stopColor="#2E1C1A" />
+              <stop offset="100%" stopColor="#150A09" />
+            </radialGradient>
+            <linearGradient id="cupGradDark" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#cfab7a" />
+              <stop offset="100%" stopColor="#8d6e63" />
+            </linearGradient>
+          </defs>
           {/* Cup */}
-          <path d="M12 40 L16 48 L44 48 L48 40" fill="#a1887f" stroke="#5d4037" strokeWidth="1" />
-          <circle cx="30" cy="28" r="18" fill="#3E2723" />
-          {/* Gold speckles */}
-          <circle cx="24" cy="20" r="1.5" fill="#FFD700" />
-          <circle cx="36" cy="24" r="1.5" fill="#FFD700" />
-          <circle cx="28" cy="32" r="2" fill="#FFD700" />
-          <circle cx="32" cy="16" r="1" fill="#FFD700" />
+          <path d="M12 40 L16 48 L44 48 L48 40" fill="url(#cupGradDark)" stroke="#5d4037" strokeWidth="1" />
+          <path d="M10 40 Q30 43 50 40" stroke="#5d4037" strokeWidth="1.5" fill="none" />
+          <circle cx="30" cy="28" r="18" fill="url(#darkChoc)" />
+          {/* Sparkles / Gold Leaf details */}
+          <path d="M26 19 L28 21 L26 23 L24 21 Z" fill="#FFD700" />
+          <path d="M35 25 L37 27 L35 29 L33 27 Z" fill="#FFD700" />
+          <circle cx="28" cy="32" r="1.5" fill="#FFE57F" />
+          <circle cx="32" cy="16" r="1" fill="#FFE57F" />
         </svg>
       )
     case 'strawberry':
       return (
         <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="strawberryChoc" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stopColor="#FFB74D" />
+              <stop offset="40%" stopColor="#FF8A80" />
+              <stop offset="85%" stopColor="#FF4081" />
+              <stop offset="100%" stopColor="#C2185B" />
+            </radialGradient>
+            <linearGradient id="cupGradPink" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#F8BBD0" />
+              <stop offset="100%" stopColor="#C2185B" />
+            </linearGradient>
+          </defs>
           {/* Cup */}
-          <path d="M12 40 L16 48 L44 48 L48 40" fill="#e1bee7" stroke="#ab47bc" strokeWidth="1" />
-          <circle cx="30" cy="28" r="18" fill="#F48FB1" />
-          {/* Swirl */}
-          <path d="M22 20 C22 20, 30 12, 36 20 C42 28, 22 28, 28 36 C34 44, 40 40, 40 40" stroke="#AD1457" strokeWidth="2" fill="none" strokeLinecap="round" />
+          <path d="M12 40 L16 48 L44 48 L48 40" fill="url(#cupGradPink)" stroke="#880E4F" strokeWidth="1" />
+          <path d="M10 40 Q30 43 50 40" stroke="#880E4F" strokeWidth="1.5" fill="none" />
+          <circle cx="30" cy="28" r="18" fill="url(#strawberryChoc)" />
+          {/* White Strawberry swirl */}
+          <path d="M22 20 C22 20, 30 12, 36 20 C42 28, 22 28, 28 36 C34 44, 40 40, 40 40" stroke="#FFFDD0" strokeWidth="2.5" fill="none" strokeLinecap="round" />
         </svg>
       )
     case 'caramel':
       return (
         <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="caramelChoc" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stopColor="#FFF9C4" />
+              <stop offset="50%" stopColor="#FFB300" />
+              <stop offset="100%" stopColor="#E65100" />
+            </radialGradient>
+            <linearGradient id="cupGradGold" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#ffe082" />
+              <stop offset="100%" stopColor="#ffb300" />
+            </linearGradient>
+          </defs>
           {/* Cup */}
-          <path d="M12 40 L16 48 L44 48 L48 40" fill="#ffe082" stroke="#ffb300" strokeWidth="1" />
-          {/* Chocolate Sunflower petals */}
+          <path d="M12 40 L16 48 L44 48 L48 40" fill="url(#cupGradGold)" stroke="#b8860b" strokeWidth="1" />
+          <path d="M10 40 Q30 43 50 40" stroke="#b8860b" strokeWidth="1.5" fill="none" />
+          {/* Sunflower outer swirl of golden caramel */}
           {Array.from({ length: 8 }).map((_, idx) => {
             const angle = (idx * 360) / 8
             return (
               <g key={idx} transform={`rotate(${angle} 30 28)`}>
-                <path d="M30 14 C27 22, 33 22, 30 14Z" fill="#FFA000" stroke="#E65100" strokeWidth="1" />
+                <path d="M30 13 C26 21, 34 21, 30 13Z" fill="#FFA000" stroke="#E65100" strokeWidth="1" />
               </g>
             )
           })}
-          {/* Chocolate center */}
-          <circle cx="30" cy="28" r="8" fill="#5D4037" stroke="#3E2723" strokeWidth="1" />
-          <circle cx="30" cy="28" r="5" fill="#4E342E" strokeDasharray="1,1" stroke="#FFB300" strokeWidth="1" />
+          {/* Shiny Caramel center dome */}
+          <circle cx="30" cy="28" r="9" fill="url(#caramelChoc)" />
+          <circle cx="30" cy="28" r="6" fill="#5D4037" opacity="0.35" />
+          <circle cx="28" cy="26" r="1.5" fill="#FFFFFF" opacity="0.8" />
         </svg>
       )
     case 'raspberry':
       return (
         <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="raspberryGrad" cx="30%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#FF4081" />
+              <stop offset="60%" stopColor="#C2185B" />
+              <stop offset="100%" stopColor="#5C002B" />
+            </radialGradient>
+            <linearGradient id="cupGradRed" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#ffcdd2" />
+              <stop offset="100%" stopColor="#d32f2f" />
+            </linearGradient>
+          </defs>
           {/* Cup */}
-          <path d="M12 40 L16 48 L44 48 L48 40" fill="#ffcdd2" stroke="#e53935" strokeWidth="1" />
+          <path d="M12 40 L16 48 L44 48 L48 40" fill="url(#cupGradRed)" stroke="#880E4F" strokeWidth="1" />
+          <path d="M10 40 Q30 43 50 40" stroke="#880E4F" strokeWidth="1.5" fill="none" />
           {/* Heart shaped chocolate */}
-          <path d="M30 36 C30 36, 14 26, 20 18 C26 10, 30 20, 30 20 C30 20, 34 10, 40 18 C46 26, 30 36, 30 36Z" fill="#C2185B" stroke="#880E4F" strokeWidth="1.5" />
-          <circle cx="24" cy="20" r="1" fill="#FF80AB" />
+          <path d="M30 36 C30 36, 14 26, 20 18 C26 10, 30 20, 30 20 C30 20, 34 10, 40 18 C46 26, 30 36, 30 36Z" fill="url(#raspberryGrad)" stroke="#880E4F" strokeWidth="1.5" />
+          <circle cx="25" cy="20" r="1.5" fill="#FF80AB" />
+          <circle cx="35" cy="20" r="1.5" fill="#FF80AB" />
         </svg>
       )
     case 'fudge':
       return (
         <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="fudgeGradTop" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#6D4C41" />
+              <stop offset="100%" stopColor="#4E342E" />
+            </linearGradient>
+            <linearGradient id="fudgeGradSide" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#4E342E" />
+              <stop offset="100%" stopColor="#271512" />
+            </linearGradient>
+          </defs>
           {/* Cup */}
           <path d="M12 40 L16 48 L44 48 L48 40" fill="#cfab7a" stroke="#a07d4c" strokeWidth="1" />
-          {/* Square fudge block */}
-          <rect x="16" y="14" width="28" height="28" rx="3" fill="#4E342E" stroke="#3E2723" strokeWidth="1.5" transform="rotate(5 30 28)" />
-          {/* Caramel lines */}
-          <path d="M20 18 L40 38" stroke="#FFA000" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M10 40 Q30 43 50 40" stroke="#a07d4c" strokeWidth="1.5" fill="none" />
+          {/* Isometric Square fudge block */}
+          <g transform="rotate(4 30 28)">
+            {/* Left/Bottom Side */}
+            <rect x="17" y="18" width="26" height="20" rx="3" fill="url(#fudgeGradSide)" />
+            {/* Top Side for 3D look */}
+            <rect x="17" y="15" width="26" height="18" rx="2" fill="url(#fudgeGradTop)" />
+          </g>
+          {/* Warm Caramel golden drizzle lines */}
+          <path d="M20 18 Q26 23 32 17 Q38 27 42 22" stroke="#FFB300" strokeWidth="3" fill="none" strokeLinecap="round" />
         </svg>
       )
     default:
@@ -86,15 +164,28 @@ const ChocolateSVG = ({ type }) => {
   }
 }
 
-// Cute Teddy Bear SVG with waving arm animation
+// Cute Teddy Bear SVG with happy wiggles and bounce
 const TeddyBearSVG = ({ isWaving }) => {
   return (
     <svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-      {/* Back ears */}
-      <circle cx="50" cy="45" r="16" fill="#A1887F" stroke="#8D6E63" strokeWidth="2" />
-      <circle cx="50" cy="45" r="10" fill="#FFCDD2" />
-      <circle cx="100" cy="45" r="16" fill="#A1887F" stroke="#8D6E63" strokeWidth="2" />
-      <circle cx="100" cy="45" r="10" fill="#FFCDD2" />
+      {/* Back ears (wiggle when happy) */}
+      <motion.g
+        animate={isWaving ? { rotate: [0, -12, 12, -8, 0] } : { rotate: 0 }}
+        transition={{ duration: 1.2, ease: "easeInOut" }}
+        style={{ transformOrigin: "50px 45px" }}
+      >
+        <circle cx="50" cy="45" r="16" fill="#A1887F" stroke="#8D6E63" strokeWidth="2" />
+        <circle cx="50" cy="45" r="10" fill="#FFCDD2" />
+      </motion.g>
+
+      <motion.g
+        animate={isWaving ? { rotate: [0, 12, -12, 8, 0] } : { rotate: 0 }}
+        transition={{ duration: 1.2, ease: "easeInOut" }}
+        style={{ transformOrigin: "100px 45px" }}
+      >
+        <circle cx="100" cy="45" r="16" fill="#A1887F" stroke="#8D6E63" strokeWidth="2" />
+        <circle cx="100" cy="45" r="10" fill="#FFCDD2" />
+      </motion.g>
 
       {/* Feet/Paws */}
       <circle cx="45" cy="115" r="16" fill="#A1887F" stroke="#8D6E63" strokeWidth="2" />
@@ -140,30 +231,50 @@ const TeddyBearSVG = ({ isWaving }) => {
       </g>
       {/* Snout */}
       <ellipse cx="75" cy="68" rx="14" ry="10" fill="#FFE0B2" stroke="#8D6E63" strokeWidth="1" />
-      {/* Eyes */}
-      <circle cx="64" cy="54" r="3.5" fill="#3E2723" />
-      <circle cx="63" cy="53" r="1" fill="#FFF" />
-      <circle cx="86" cy="54" r="3.5" fill="#3E2723" />
-      <circle cx="85" cy="53" r="1" fill="#FFF" />
+      
+      {/* Eyes (Happy ^ ^ crescent squeeze when activated) */}
+      {!isWaving ? (
+        <>
+          <circle cx="64" cy="54" r="3.5" fill="#3E2723" />
+          <circle cx="63" cy="53" r="1" fill="#FFF" />
+          <circle cx="86" cy="54" r="3.5" fill="#3E2723" />
+          <circle cx="85" cy="53" r="1" fill="#FFF" />
+        </>
+      ) : (
+        <>
+          <path d="M60 56 Q64 50 68 56" stroke="#3E2723" strokeWidth="3" strokeLinecap="round" fill="none" />
+          <path d="M82 56 Q86 50 90 56" stroke="#3E2723" strokeWidth="3" strokeLinecap="round" fill="none" />
+        </>
+      )}
+
       {/* Nose & Mouth */}
       <polygon points="72,64 78,64 75,68" fill="#3E2723" />
       <path d="M75 68 Q72 73 70 71" stroke="#3E2723" strokeWidth="1.5" fill="none" />
       <path d="M75 68 Q78 73 80 71" stroke="#3E2723" strokeWidth="1.5" fill="none" />
-      {/* Blush */}
-      <circle cx="58" cy="64" r="4" fill="#FF8A80" opacity="0.6" />
-      <circle cx="92" cy="64" r="4" fill="#FF8A80" opacity="0.6" />
+      
+      {/* Blush (Grows and glows when happy) */}
+      <motion.circle 
+        cx="58" 
+        cy="64" 
+        r="4" 
+        fill="#FF8A80" 
+        opacity="0.6" 
+        animate={isWaving ? { scale: [1, 1.4, 1] } : {}}
+        transition={{ duration: 0.6, repeat: 1 }}
+      />
+      <motion.circle 
+        cx="92" 
+        cy="64" 
+        r="4" 
+        fill="#FF8A80" 
+        opacity="0.6" 
+        animate={isWaving ? { scale: [1, 1.4, 1] } : {}}
+        transition={{ duration: 0.6, repeat: 1 }}
+      />
 
-      {/* Left arm holding the body */}
+      {/* Static Cuddly Arms holding the chest/heart */}
       <path d="M35 85 C35 85, 20 95, 25 105 C30 115, 45 100, 45 100" stroke="#8D6E63" strokeWidth="10" strokeLinecap="round" />
-
-      {/* Right arm waving! */}
-      <motion.g
-        animate={isWaving ? { rotate: [0, 40, -10, 40, 0] } : { rotate: 0 }}
-        transition={{ duration: 1.5, ease: "easeInOut" }}
-        style={{ originX: '110px', originY: '85px' }}
-      >
-        <path d="M110 85 C110 85, 128 80, 132 92 C135 102, 118 108, 118 108" stroke="#8D6E63" strokeWidth="10" strokeLinecap="round" />
-      </motion.g>
+      <path d="M115 85 C115 85, 130 95, 125 105 C120 115, 105 100, 105 100" stroke="#8D6E63" strokeWidth="10" strokeLinecap="round" />
 
       {/* Red heart held on the chest */}
       <path d="M75 100 C75 100, 62 90, 67 82 C72 74, 75 84, 75 84 C75 84, 78 74, 83 82 C88 90, 75 100, 75 100Z" fill="#E53935" stroke="#C2185B" strokeWidth="1" />
@@ -275,6 +386,12 @@ export const ChocolateTeddyBox = () => {
             <motion.div
               whileHover={{ scale: 1.05, rotate: 2 }}
               whileTap={{ scale: 0.95 }}
+              animate={teddyWaving ? {
+                scale: [1, 1.12, 0.96, 1.05, 1],
+                y: [0, -18, 6, -3, 0],
+                rotate: [0, -4, 4, -2, 0]
+              } : {}}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
               onClick={triggerTeddyHug}
               className="cursor-pointer select-none relative"
             >
@@ -329,13 +446,17 @@ export const ChocolateTeddyBox = () => {
       {/* CHOCOLATE MODAL POP-UP */}
       <AnimatePresence>
         {activeChoc && (
-          <div className="fixed inset-0 flex items-center justify-center p-4 bg-black/30 backdrop-blur-xs z-50">
+          <div 
+            onClick={() => setActiveChoc(null)}
+            className="fixed inset-0 flex items-center justify-center p-4 bg-black/30 backdrop-blur-xs z-50 cursor-pointer"
+          >
             <motion.div
-              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              initial={{ scale: 0.8, opacity: 0, y: 30 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.8, opacity: 0, y: 50 }}
-              transition={{ type: "spring", damping: 15 }}
-              className="relative w-full max-w-sm bg-lined-paper border-stitch p-6 sm:p-8 shadow-2xl"
+              exit={{ scale: 0.85, opacity: 0, y: 20 }}
+              transition={{ type: "spring", stiffness: 350, damping: 28 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-sm bg-lined-paper border-stitch p-6 sm:p-8 shadow-2xl cursor-default"
             >
               {/* Paper clip or tape detail */}
               <div className="w-20 h-5 absolute -top-2 left-1/2 -translate-x-1/2 washi-tape washi-tape-pink" />
