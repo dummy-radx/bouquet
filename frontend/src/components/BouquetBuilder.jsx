@@ -677,8 +677,8 @@ export const BouquetBuilder = () => {
                     }}
                     className={`absolute bottom-[35px] left-[-45px] z-50 w-[200px] p-5 shadow-2xl origin-bottom-left cursor-pointer pointer-events-auto border-2 border-dashed transition-all duration-500 ${
                       isSpecialSunflower 
-                        ? 'bg-gradient-to-br from-[#fffdf0] to-[#fffde0] border-amber-300/80 rounded-2xl shadow-amber-100/50' 
-                        : 'bg-gradient-to-br from-[#fffafc] to-[#ffeef4] border-pink-200 rounded-2xl shadow-pink-100/50'
+                        ? 'bg-linear-to-br from-[#fffdf0] to-[#fffde0] border-amber-300/80 rounded-2xl shadow-amber-100/50' 
+                        : 'bg-linear-to-br from-[#fffafc] to-[#ffeef4] border-pink-200 rounded-2xl shadow-pink-100/50'
                     }`}
                   >
                     {/* Dynamic Washi Tape */}
@@ -695,7 +695,7 @@ export const BouquetBuilder = () => {
                     <div className="absolute inset-0 bg-lined-paper opacity-5 pointer-events-none rounded-2xl" />
 
                     <div className="relative z-10">
-                      <p className="font-handwritten text-xl text-stone-800 leading-snug break-words pointer-events-auto select-none">
+                      <p className="font-handwritten text-xl text-stone-800 leading-snug wrap-break-word pointer-events-auto select-none">
                         "{noteText}"
                       </p>
                       
