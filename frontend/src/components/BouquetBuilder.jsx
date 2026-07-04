@@ -270,6 +270,11 @@ export const BouquetBuilder = () => {
     setIsWrapped(true)
     setShowSparkles(true)
     setTimeout(() => setShowSparkles(false), 2500)
+    
+    // Smoothly scroll to the bouquet preview to show the final result
+    setTimeout(() => {
+      canvasRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }, 150)
   }
 
   const handlePresetSunflower = () => {
@@ -348,7 +353,7 @@ export const BouquetBuilder = () => {
   }
 
   return (
-    <div className="relative w-full min-h-screen bg-grid-paper py-16 px-4 flex flex-col items-center justify-start overflow-hidden">
+    <div className="relative w-full min-h-screen bg-grid-paper py-16 px-4 flex flex-col items-center justify-start overflow-visible">
       
       <div className="washi-tape washi-tape-pink w-28 -rotate-6 -left-4 top-10 z-10" />
 
@@ -494,7 +499,7 @@ export const BouquetBuilder = () => {
 
         <div 
           ref={canvasRef} 
-          className="relative aspect-4/5 bg-stone-50/50 border-stitch flex items-center justify-center overflow-hidden h-[360px] xs:h-[400px] sm:h-[450px] md:h-[500px] select-none order-1 md:order-2"
+          className="sticky top-4 z-20 md:relative aspect-4/5 bg-[#faf8f5]/95 backdrop-blur-md md:bg-stone-50/50 border-stitch flex items-center justify-center overflow-hidden h-[290px] xs:h-[330px] sm:h-[390px] md:h-[500px] shadow-md md:shadow-none select-none order-1 md:order-2"
         >
           
           <div className="absolute inset-x-0 bottom-0 h-1/4 bg-[#f1ebd9] border-t border-[#dfd8c2] z-0 flex items-center justify-center shadow-inner pointer-events-none">
@@ -516,7 +521,7 @@ export const BouquetBuilder = () => {
           <div className="relative w-full h-full flex flex-col items-center justify-end pb-4 z-10 pointer-events-none">
             
             {/* Unified Bouquet Unit to prevent sizing/placement misalignment */}
-            <div className="relative w-[320px] h-[450px] flex flex-col items-center justify-end pointer-events-none scale-75 xs:scale-85 sm:scale-95 md:scale-100 origin-bottom">
+            <div className="relative w-[320px] h-[450px] flex flex-col items-center justify-end pointer-events-none scale-[0.62] xs:scale-[0.72] sm:scale-[0.85] md:scale-100 origin-bottom">
               
               {/* 1. BACK WRAPPING PAPER (z-10, fanning out properly) */}
               <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[280px] h-[320px] z-10 pointer-events-none">
