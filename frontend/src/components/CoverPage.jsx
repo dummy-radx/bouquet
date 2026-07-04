@@ -15,7 +15,19 @@ export const CoverPage = ({ onOpenComplete }) => {
   }
 
   // Create an array of random positions for background sparkles/hearts
-  const particles = Array.from({ length: 18 })
+  const particles = React.useMemo(() => {
+    return Array.from({ length: 18 }).map((_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      scale: Math.random() * 0.6 + 0.4,
+      drift: (Math.random() - 0.5) * 60,
+      duration: Math.random() * 8 + 6,
+      delay: Math.random() * 5,
+      rotateEnd: Math.random() * 360,
+      isSunflower: i % 2 === 0,
+      heartSize: Math.random() * 20 + 12
+    }))
+  }, [])
 
   return (
     <div className="relative w-full min-h-screen flex flex-col items-center justify-center bg-grid-paper px-4 overflow-hidden py-16">
@@ -28,35 +40,34 @@ export const CoverPage = ({ onOpenComplete }) => {
       <AnimatePresence>
         {!isRevealed && (
           <div className="absolute inset-0 pointer-events-none z-0">
-            {particles.map((_, i) => {
-              const isSunflower = i % 2 === 0
+            {particles.map((p) => {
               return (
                 <motion.div
-                  key={i}
-                  className={`absolute ${isSunflower ? 'text-yellow-400' : 'text-pink-300'}`}
+                  key={p.id}
+                  className={`absolute ${p.isSunflower ? 'text-yellow-400' : 'text-pink-300'}`}
+                  style={{ left: `${p.left}%` }}
                   initial={{
-                    x: Math.random() * window.innerWidth,
-                    y: window.innerHeight + 100,
-                    scale: Math.random() * 0.6 + 0.4,
+                    y: "100vh",
+                    scale: p.scale,
                     opacity: 0.8
                   }}
                   animate={{
-                    y: -100,
-                    x: `calc(${Math.random() * 100}vw)`,
-                    rotate: Math.random() * 360,
+                    y: "-20vh",
+                    x: [0, p.drift],
+                    rotate: p.rotateEnd,
                     opacity: [0.8, 1, 0]
                   }}
                   transition={{
-                    duration: Math.random() * 8 + 6,
+                    duration: p.duration,
                     repeat: Infinity,
                     ease: "linear",
-                    delay: Math.random() * 5
+                    delay: p.delay
                   }}
                 >
-                  {isSunflower ? (
+                  {p.isSunflower ? (
                     <span className="text-2xl filter drop-shadow">🌻</span>
                   ) : (
-                    <Heart fill="currentColor" size={Math.random() * 20 + 12} />
+                    <Heart fill="currentColor" size={p.heartSize} />
                   )}
                 </motion.div>
               )

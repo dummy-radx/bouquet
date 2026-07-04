@@ -64,7 +64,7 @@ export const MusicBox = () => {
       scale: Math.random() * 1.2 + 0.6,
       rotate: Math.random() * 360,
       isSunflower: i % 2 === 0,
-      color: ['text-rose-400', 'text-pink-400', 'text-amber-450', 'text-purple-400'][Math.floor(Math.random() * 4)]
+      color: ['text-rose-400', 'text-pink-400', 'text-amber-500', 'text-purple-400'][Math.floor(Math.random() * 4)]
     }));
 
     setConfetti(newConfetti);
@@ -211,7 +211,7 @@ export const MusicBox = () => {
                 animate={{ rotate: 1, opacity: 1, scale: 1 }}
                 exit={{ rotate: -5, opacity: 0, scale: 0.8 }}
                 transition={{ type: "spring", damping: 15 }}
-                className="w-full bg-lined-paper border-stitch p-8 shadow-xl flex flex-col justify-between relative min-h-[400px]"
+                className="w-full bg-lined-paper border-stitch p-5 sm:p-8 shadow-xl flex flex-col justify-between relative min-h-[400px]"
               >
                 {/* Washi tape holds scroll top */}
                 <div className="absolute washi-tape washi-tape-sunflower w-24 -top-3 left-1/2 -translate-x-1/2" />
@@ -220,7 +220,7 @@ export const MusicBox = () => {
                 <div className="absolute bottom-4 left-6 text-yellow-500/20 text-3xl select-none pointer-events-none">🌻</div>
                 <div className="absolute top-4 right-6 text-yellow-500/20 text-3xl select-none pointer-events-none">🌻</div>
 
-                <div className="font-handwritten text-stone-700 text-2xl sm:text-3xl leading-relaxed space-y-4">
+                <div className="font-handwritten text-stone-700 text-xl xs:text-2xl sm:text-3xl leading-relaxed space-y-3 sm:space-y-4">
                   <p>My Dearest Sreeparna,</p>
                   <p>
                     Thank you for being in my life. You are the sweetest melody, the brightest sun, and my favorite thought every single day.

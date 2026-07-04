@@ -16,11 +16,15 @@
   --color-warm-amber: #ffca28;
 }
 
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Fredoka', sans-serif;
   background-color: #faf8f5;
   color: #5d4037;
-  overflow-x: hidden;
   margin: 0;
   padding: 0;
 }

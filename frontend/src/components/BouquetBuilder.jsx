@@ -366,7 +366,7 @@ export const BouquetBuilder = () => {
 
       <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8 items-start z-10">
         
-        <div className="bg-white border-stitch p-6 sm:p-8 shadow-md space-y-6 relative">
+        <div className="bg-white border-stitch p-6 sm:p-8 shadow-md space-y-6 relative order-2 md:order-1">
           <div className="absolute washi-tape washi-tape-blue w-24 -top-3 left-12" />
           
           <div className="space-y-3">
@@ -494,7 +494,7 @@ export const BouquetBuilder = () => {
 
         <div 
           ref={canvasRef} 
-          className="relative aspect-4/5 bg-stone-50/50 border-stitch flex items-center justify-center overflow-hidden h-[500px] select-none"
+          className="relative aspect-4/5 bg-stone-50/50 border-stitch flex items-center justify-center overflow-hidden h-[360px] xs:h-[400px] sm:h-[450px] md:h-[500px] select-none order-1 md:order-2"
         >
           
           <div className="absolute inset-x-0 bottom-0 h-1/4 bg-[#f1ebd9] border-t border-[#dfd8c2] z-0 flex items-center justify-center shadow-inner pointer-events-none">
@@ -516,7 +516,7 @@ export const BouquetBuilder = () => {
           <div className="relative w-full h-full flex flex-col items-center justify-end pb-4 z-10 pointer-events-none">
             
             {/* Unified Bouquet Unit to prevent sizing/placement misalignment */}
-            <div className="relative w-[320px] h-[450px] flex flex-col items-center justify-end pointer-events-none">
+            <div className="relative w-[320px] h-[450px] flex flex-col items-center justify-end pointer-events-none scale-75 xs:scale-85 sm:scale-95 md:scale-100 origin-bottom">
               
               {/* 1. BACK WRAPPING PAPER (z-10, fanning out properly) */}
               <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[280px] h-[320px] z-10 pointer-events-none">

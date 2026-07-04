@@ -13,7 +13,7 @@ export const FlipBook = () => {
       title: 'Our Sweet Story',
       subtitle: 'A flipbook of our favorite chapters 📖',
       footer: 'For Sreeparna, with all my love ❤️',
-      bgClass: 'bg-gradient-to-br from-amber-105 to-orange-50 border-stitch'
+      bgClass: 'bg-gradient-to-br from-amber-100 to-orange-50 border-stitch'
     },
     {
       id: 1,
@@ -140,7 +140,7 @@ export const FlipBook = () => {
       <div className="relative w-full max-w-md flex flex-col items-center z-10 px-4">
         
         {/* Book Outer Binder Wrapper */}
-        <div className="relative w-full h-[520px] bg-amber-900 rounded-r-2xl rounded-l-md shadow-2xl p-1.5 flex items-stretch border-l-14 border-amber-950 bg-linear-to-r from-amber-950 via-amber-900 to-amber-900">
+        <div className="relative w-full h-[470px] sm:h-[520px] bg-amber-900 rounded-r-2xl rounded-l-md shadow-2xl p-1.5 flex items-stretch border-l-14 border-amber-950 bg-linear-to-r from-amber-950 via-amber-900 to-amber-900">
           
           {/* Inner Binder shadow/rings design */}
           <div className="absolute left-0 top-0 bottom-0 w-2 bg-black/30 pointer-events-none rounded-l" />
@@ -197,10 +197,10 @@ export const FlipBook = () => {
                   <div className="h-full w-full flex flex-col justify-between">
                     
                     {/* Polaroid Area */}
-                    <div className="relative w-full max-w-[260px] mx-auto select-none mt-2">
+                    <div className="relative w-full max-w-[210px] xs:max-w-[240px] sm:max-w-[260px] mx-auto select-none mt-2">
                       <div className={`washi-tape ${pages[currentPage].tapeColor} w-20 -top-3 left-[35%] z-20`} />
                       
-                      <div className="polaroid-frame bg-white p-3 pb-6 shadow-md border border-stone-200/50 flex flex-col rounded-sm">
+                      <div className="polaroid-frame bg-white p-2.5 pb-5 sm:p-3 sm:pb-6 shadow-md border border-stone-200/50 flex flex-col rounded-sm">
                         <div className="w-full aspect-4/3 overflow-hidden bg-stone-100 border border-stone-200/20 rounded-sm">
                           <img 
                             src={pages[currentPage].image} 
@@ -208,15 +208,15 @@ export const FlipBook = () => {
                             className="w-full h-full object-cover pointer-events-none"
                           />
                         </div>
-                        <p className="font-handwritten text-stone-700 text-base sm:text-lg text-center mt-3 leading-snug px-0.5 truncate font-bold">
+                        <p className="font-handwritten text-stone-700 text-sm xs:text-base sm:text-lg text-center mt-2.5 leading-snug px-0.5 truncate font-bold">
                           {pages[currentPage].caption}
                         </p>
                       </div>
                     </div>
 
                     {/* Handwriting text content below polaroid */}
-                    <div className="mt-4 px-2 flex-1 flex flex-col justify-center">
-                      <p className="font-handwritten text-stone-600 text-lg sm:text-xl leading-relaxed text-center italic max-h-[120px] overflow-y-auto pr-1 select-none">
+                    <div className="mt-3 sm:mt-4 px-2 flex-1 flex flex-col justify-center">
+                      <p className="font-handwritten text-stone-600 text-sm xs:text-base sm:text-lg md:text-xl leading-relaxed text-center italic max-h-[110px] sm:max-h-[120px] overflow-y-auto pr-1 select-none">
                         "{pages[currentPage].description}"
                       </p>
                     </div>

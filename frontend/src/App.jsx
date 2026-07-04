@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring } from 'framer-motion'
 import { Heart, Sparkles, Navigation, BookOpen } from 'lucide-react'
 import { CoverPage } from './components/CoverPage'
 import { PolaroidBoard } from './components/PolaroidBoard'
@@ -11,12 +11,17 @@ import { FlipBook } from './components/FlipBook'
 
 // Custom Cursor Trail Component for Cute Vibes (spawns hearts, sunflowers, and hand-drawn stars!)
 const CuteCursorTrail = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const springX = useSpring(mouseX, { stiffness: 250, damping: 20, mass: 0.2 })
+  const springY = useSpring(mouseY, { stiffness: 250, damping: 20, mass: 0.2 })
+
   const [bubbles, setBubbles] = useState([])
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
+      mouseX.set(e.clientX - 8)
+      mouseY.set(e.clientY - 8)
       
       // Randomly spawn cursor bubbles
       if (Math.random() < 0.15) {
@@ -38,22 +43,22 @@ const CuteCursorTrail = () => {
 
     window.addEventListener('mousemove', handleMouseMove)
     return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
+  }, [mouseX, mouseY])
 
   return (
     <>
       {/* Follower sunflower */}
       <motion.div
         className="hidden md:block fixed pointer-events-none z-50 text-amber-500"
+        style={{
+          x: springX,
+          y: springY
+        }}
         animate={{
-          x: mousePosition.x - 8,
-          y: mousePosition.y - 8,
           scale: [1, 1.15, 1],
           rotate: [0, 10, -10, 0]
         }}
         transition={{
-          x: { type: 'spring', stiffness: 250, damping: 20, mass: 0.2 },
-          y: { type: 'spring', stiffness: 250, damping: 20, mass: 0.2 },
           scale: { repeat: Infinity, duration: 1.5 },
           rotate: { repeat: Infinity, duration: 2, ease: "easeInOut" }
         }}
@@ -222,15 +227,16 @@ function App() {
       <AnimatePresence>
         {isBookOpened && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 md:hidden flex gap-2 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-pink-200 shadow-lg"
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 md:hidden flex flex-wrap justify-center gap-1.5 bg-white/80 backdrop-blur-md px-3.5 py-2 rounded-full border border-pink-200 shadow-lg max-w-[95vw]"
           >
             {sections.slice(1).map((sect) => (
               <button
                 key={sect.id}
                 onClick={() => handleScrollTo(sect.id)}
-                className="px-2.5 py-1.5 rounded-full font-cute text-[10px] font-bold text-stone-600 hover:bg-pink-50 hover:text-pink-500 transition-colors cursor-pointer select-none"
+                className="px-2 py-1 rounded-full font-cute text-[10px] font-bold text-stone-600 hover:bg-pink-50 hover:text-pink-500 transition-colors cursor-pointer select-none whitespace-nowrap"
               >
                 {sect.name.split(' ')[0]}
               </button>

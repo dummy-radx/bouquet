@@ -1,9 +1,19 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Pin } from 'lucide-react'
 
 export const PolaroidBoard = () => {
   const constraintsRef = useRef(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const scrapbookItems = [
     {
@@ -73,6 +83,15 @@ export const PolaroidBoard = () => {
       rotate: -2,
       tapeColor: 'washi-tape-sunflower',
       tapeLeft: '36%'
+    },
+    {
+      id: 9,
+      type: 'polaroid',
+      image: '/illustration_teddy.png',
+      caption: 'Sending you warm bear hugs 🧸',
+      rotate: 3,
+      tapeColor: 'washi-tape-pink',
+      tapeLeft: '38%'
     }
   ]
 
@@ -98,7 +117,10 @@ export const PolaroidBoard = () => {
           Our Sweet Memories <span className="animate-wiggle inline-block">🌻</span>
         </h2>
         <p className="font-handwritten text-xl sm:text-2xl text-stone-600 mt-2">
-          (Psst! Try dragging the photos and notes around to organize them on the board!)
+          {isMobile 
+            ? "A little board of our cozy moments together 🌻" 
+            : "(Psst! Try dragging the photos and notes around to organize them on the board!)"
+          }
         </p>
       </div>
 
@@ -117,12 +139,13 @@ export const PolaroidBoard = () => {
               return (
                 <motion.div
                   key={item.id}
-                  drag
+                  drag={!isMobile}
                   dragConstraints={constraintsRef}
                   dragElastic={0.2}
-                  whileDrag={{ scale: 1.05, zIndex: 50, rotate: item.rotate * 1.5 }}
+                  whileDrag={isMobile ? {} : { scale: 1.05, zIndex: 50, rotate: item.rotate * 1.5 }}
+                  whileHover={isMobile ? {} : { scale: 1.02 }}
                   style={{ rotate: item.rotate }}
-                  className="relative cursor-grab active:cursor-grabbing w-full max-w-[280px] mx-auto select-none"
+                  className={`relative ${isMobile ? '' : 'cursor-grab active:cursor-grabbing'} w-full max-w-[280px] mx-auto select-none`}
                 >
                   {/* Washi Tape Accent */}
                   <div 
@@ -149,12 +172,13 @@ export const PolaroidBoard = () => {
               return (
                 <motion.div
                   key={item.id}
-                  drag
+                  drag={!isMobile}
                   dragConstraints={constraintsRef}
                   dragElastic={0.2}
-                  whileDrag={{ scale: 1.08, zIndex: 50 }}
+                  whileDrag={isMobile ? {} : { scale: 1.08, zIndex: 50 }}
+                  whileHover={isMobile ? {} : { scale: 1.03 }}
                   style={{ rotate: item.rotate }}
-                  className={`relative cursor-grab active:cursor-grabbing px-6 py-8 rounded shadow-md border ${item.bg} flex items-center justify-center min-h-[160px] sm:min-h-[200px] w-full max-w-[280px] mx-auto select-none`}
+                  className={`relative ${isMobile ? '' : 'cursor-grab active:cursor-grabbing'} px-6 py-8 rounded shadow-md border ${item.bg} flex items-center justify-center min-h-[160px] sm:min-h-[200px] w-full max-w-[280px] mx-auto select-none`}
                 >
                   {/* Mini Pin head */}
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-rose-500 pointer-events-none drop-shadow-sm">
@@ -174,16 +198,17 @@ export const PolaroidBoard = () => {
         {stickers.map((sticker) => (
           <motion.div
             key={sticker.id}
-            drag
+            drag={!isMobile}
             dragConstraints={constraintsRef}
             dragElastic={0.15}
-            whileDrag={{ scale: 1.2, zIndex: 50, rotate: sticker.rotate * 1.5 }}
+            whileDrag={isMobile ? {} : { scale: 1.2, zIndex: 50, rotate: sticker.rotate * 1.5 }}
+            whileHover={isMobile ? {} : { scale: 1.05 }}
             style={{ 
               left: sticker.x, 
               top: sticker.y,
               rotate: sticker.rotate 
             }}
-            className="absolute cursor-grab active:cursor-grabbing z-30 select-none bg-white/70 backdrop-blur-[1px] px-3 py-1.5 rounded-full border border-stone-200/50 shadow-sm flex items-center justify-center gap-1.5"
+            className={`absolute ${isMobile ? '' : 'cursor-grab active:cursor-grabbing'} z-30 select-none bg-white/70 backdrop-blur-[1px] px-3 py-1.5 rounded-full border border-stone-200/50 shadow-sm flex items-center justify-center gap-1.5`}
             title={sticker.label}
           >
             <span className="text-xl filter drop-shadow-sm">{sticker.emoji}</span>
