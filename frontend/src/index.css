@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Fredoka:wght@300..700&family=Playpen+Sans:wght@300..800&family=Pacifico&display=swap');
+@import "tailwindcss";
+
+/* Add Custom Styles & Classes */
+:root {
+  --color-pastel-pink: #fbcbc9;
+  --color-pastel-peach: #ffe3d8;
+  --color-pastel-yellow: #fef5d1;
+  --color-pastel-blue: #d4f0fc;
+  --color-pastel-green: #e2f7df;
+  --color-pastel-purple: #ebdcf9;
+}
+
+body {
+  font-family: 'Fredoka', sans-serif;
+  background-color: #faf8f5;
+  color: #5d4037;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Paper textures */
+.bg-grid-paper {
+  background-size: 35px 35px;
+  background-image: 
+    linear-gradient(to right, rgba(93, 64, 55, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(93, 64, 55, 0.04) 1px, transparent 1px);
+  background-color: #faf8f5;
+}
+
+.bg-dotted-paper {
+  background-size: 24px 24px;
+  background-image: radial-gradient(circle, rgba(93, 64, 55, 0.07) 1.5px, transparent 1.5px);
+  background-color: #f7f4ee;
+}
+
+.bg-lined-paper {
+  background-size: 100% 32px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0) 96%, rgba(79, 110, 138, 0.12) 96%);
+  background-color: #fffdf9;
+  line-height: 32px;
+}
+
+/* Hand-stitched border */
+.border-stitch {
+  border: 2.5px dashed rgba(141, 110, 99, 0.4);
+  border-radius: 12px;
+  box-shadow: 0 0 0 4px rgba(255, 253, 249, 0.8), inset 0 0 0 2px rgba(141, 110, 99, 0.08);
+}
+
+/* Polaroid framing */
+.polaroid-frame {
+  background: #ffffff;
+  padding: 16px 16px 36px 16px;
+  box-shadow: 0 10px 25px rgba(93, 64, 55, 0.08);
+  border: 1px solid rgba(93, 64, 55, 0.05);
+  border-radius: 4px;
+}
+
+/* Cute washi tape styles */
+.washi-tape {
+  position: absolute;
+  height: 24px;
+  backdrop-filter: blur(0.5px);
+  border-left: 2px dashed rgba(255, 255, 255, 0.6);
+  border-right: 2px dashed rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+}
+
+.washi-tape-pink {
+  background: rgba(245, 187, 196, 0.75);
+  background-image: radial-gradient(rgba(255,255,255,0.3) 20%, transparent 20%);
+  background-size: 6px 6px;
+}
+
+.washi-tape-blue {
+  background: rgba(186, 222, 245, 0.75);
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(255,255,255,0.3) 4px, rgba(255,255,255,0.3) 8px);
+}
+
+.washi-tape-yellow {
+  background: rgba(254, 245, 209, 0.85);
+  background-image: radial-gradient(rgba(141, 110, 99, 0.1) 20%, transparent 20%);
+  background-size: 8px 8px;
+}
+
+.washi-tape-green {
+  background: rgba(210, 238, 208, 0.8);
+}
+
+.washi-tape-purple {
+  background: rgba(235, 220, 249, 0.8);
+}
+
+/* Custom handwriting utility font families */
+.font-handwritten {
+  font-family: 'Caveat', cursive;
+}
+
+.font-playpen {
+  font-family: 'Playpen Sans', cursive;
+}
+
+.font-pacifico {
+  font-family: 'Pacifico', cursive;
+}
+
+.font-cute {
+  font-family: 'Fredoka', sans-serif;
+}
+
+/* Custom Scrollbar for cute vibe */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #faf8f5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fbcbc9;
+  border-radius: 5px;
+  border: 2px solid #faf8f5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e5b3b1;
+}
+
+/* Sparkles animation keyframes */
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.animate-sparkle {
+  animation: sparkle 1.5s infinite ease-in-out;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+.animate-float-slow {
+  animation: float 6s infinite ease-in-out;
+}
+
+.animate-float-fast {
+  animation: float 3s infinite ease-in-out;
+}
