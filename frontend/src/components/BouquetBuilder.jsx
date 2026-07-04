@@ -197,6 +197,8 @@ export const BouquetBuilder = () => {
   const [noteText, setNoteText] = useState(DEFAULT_NOTE)
   const [isSpecialSunflower, setIsSpecialSunflower] = useState(false)
   const canvasRef = useRef(null)
+  const sectionRef = useRef(null)
+  const gridRef = useRef(null)
 
   const flowerOptions = [
     { name: 'Daisy', color: 'text-amber-500 bg-white border-amber-100' },
@@ -271,10 +273,19 @@ export const BouquetBuilder = () => {
     setShowSparkles(true)
     setTimeout(() => setShowSparkles(false), 2500)
     
-    // Smoothly scroll to the bouquet preview to show the final result
+    // Robustly scroll to the grid container to frame the bouquet
     setTimeout(() => {
-      canvasRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    }, 150)
+      if (gridRef.current) {
+        const yOffset = -20; // Add slight padding at the top
+        const elementPosition = gridRef.current.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY + yOffset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, 300)
   }
 
   const handlePresetSunflower = () => {
@@ -353,7 +364,7 @@ export const BouquetBuilder = () => {
   }
 
   return (
-    <div className="relative w-full min-h-screen bg-grid-paper py-16 px-4 flex flex-col items-center justify-start overflow-visible">
+    <div ref={sectionRef} className="relative w-full min-h-screen bg-grid-paper py-16 px-4 flex flex-col items-center justify-start overflow-visible">
       
       <div className="washi-tape washi-tape-pink w-28 -rotate-6 -left-4 top-10 z-10" />
 
@@ -369,7 +380,7 @@ export const BouquetBuilder = () => {
         </p>
       </div>
 
-      <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8 items-start z-10">
+      <div ref={gridRef} className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8 items-start z-10">
         
         <div className="bg-white border-stitch p-6 sm:p-8 shadow-md space-y-6 relative order-2 md:order-1">
           <div className="absolute washi-tape washi-tape-blue w-24 -top-3 left-12" />
