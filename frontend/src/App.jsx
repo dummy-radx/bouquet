@@ -7,9 +7,10 @@ import { BouquetBuilder } from './components/BouquetBuilder'
 import { ChocolateTeddyBox } from './components/ChocolateTeddyBox'
 import { LoveQuiz } from './components/LoveQuiz'
 import { MusicBox } from './components/MusicBox'
+import { FlipBook } from './components/FlipBook'
 
-// Custom Cursor Trail Component for Cute Vibes
-const HeartCursorTrail = () => {
+// Custom Cursor Trail Component for Cute Vibes (spawns hearts, sunflowers, and hand-drawn stars!)
+const CuteCursorTrail = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [bubbles, setBubbles] = useState([])
 
@@ -18,15 +19,18 @@ const HeartCursorTrail = () => {
       setMousePosition({ x: e.clientX, y: e.clientY })
       
       // Randomly spawn cursor bubbles
-      if (Math.random() < 0.12) {
+      if (Math.random() < 0.15) {
+        const types = ['heart', 'sunflower', 'star']
+        const type = types[Math.floor(Math.random() * types.length)]
         setBubbles((prev) => [
-          ...prev.slice(-15),
+          ...prev.slice(-20),
           {
             id: Date.now() + Math.random(),
             x: e.clientX,
             y: e.clientY,
-            scale: Math.random() * 0.5 + 0.5,
-            color: ['text-pink-300', 'text-rose-300', 'text-purple-300', 'text-amber-200'][Math.floor(Math.random() * 4)]
+            scale: Math.random() * 0.6 + 0.5,
+            type,
+            color: ['text-pink-400', 'text-amber-400', 'text-yellow-500', 'text-rose-400'][Math.floor(Math.random() * 4)]
           }
         ])
       }
@@ -38,21 +42,23 @@ const HeartCursorTrail = () => {
 
   return (
     <>
-      {/* Follower heart */}
+      {/* Follower sunflower */}
       <motion.div
-        className="hidden md:block fixed pointer-events-none z-50 text-pink-500"
+        className="hidden md:block fixed pointer-events-none z-50 text-amber-500"
         animate={{
           x: mousePosition.x - 8,
           y: mousePosition.y - 8,
-          scale: [1, 1.15, 1]
+          scale: [1, 1.15, 1],
+          rotate: [0, 10, -10, 0]
         }}
         transition={{
           x: { type: 'spring', stiffness: 250, damping: 20, mass: 0.2 },
           y: { type: 'spring', stiffness: 250, damping: 20, mass: 0.2 },
-          scale: { repeat: Infinity, duration: 1.5 }
+          scale: { repeat: Infinity, duration: 1.5 },
+          rotate: { repeat: Infinity, duration: 2, ease: "easeInOut" }
         }}
       >
-        <Heart fill="currentColor" size={16} />
+        <span className="text-lg">🌻</span>
       </motion.div>
 
       {/* Bubble trail */}
@@ -60,24 +66,48 @@ const HeartCursorTrail = () => {
         {bubbles.map((b) => (
           <motion.div
             key={b.id}
-            className={`fixed pointer-events-none z-50 ${b.color}`}
-            initial={{ x: b.x, y: b.y, scale: b.scale, opacity: 1 }}
+            className={`fixed pointer-events-none z-50 select-none ${b.color} font-bold`}
+            initial={{ x: b.x, y: b.y, scale: b.scale, opacity: 1, rotate: Math.random() * 360 }}
             animate={{
-              y: b.y - 40,
-              x: b.x + (Math.random() * 30 - 15),
+              y: b.y - 60,
+              x: b.x + (Math.random() * 40 - 20),
               opacity: 0,
-              scale: 0.2
+              scale: 0.1,
+              rotate: Math.random() * 360
             }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
+            transition={{ duration: 1.0, ease: 'easeOut' }}
           >
-            <Heart fill="currentColor" size={10} />
+            {b.type === 'heart' && '❤️'}
+            {b.type === 'sunflower' && '🌻'}
+            {b.type === 'star' && '✨'}
           </motion.div>
         ))}
       </AnimatePresence>
     </>
   )
 }
+
+// Floating Sunflower background decoration
+const FloatingSunflower = ({ className, style }) => (
+  <motion.div className={className} style={style}>
+    <svg width="85" height="85" viewBox="0 0 100 100" fill="none" className="animate-spin-slow opacity-[0.25] pointer-events-none select-none">
+      {/* Petals */}
+      {Array.from({ length: 12 }).map((_, idx) => {
+        const angle = (idx * 360) / 12
+        return (
+          <g key={idx} transform={`rotate(${angle} 50 50)`}>
+            <path d="M50 15 C45 30, 55 30, 50 15Z" fill="#FFB300" stroke="#FFA000" strokeWidth="1.5" />
+            <path d="M50 10 C42 28, 58 28, 50 10Z" fill="#FFC107" />
+          </g>
+        )
+      })}
+      {/* Center */}
+      <circle cx="50" cy="50" r="20" fill="#5D4037" stroke="#3E2723" strokeWidth="1.5" />
+      <circle cx="50" cy="50" r="14" fill="#4E342E" strokeDasharray="2,2" stroke="#8D6E63" strokeWidth="1.5" />
+    </svg>
+  </motion.div>
+)
 
 function App() {
   const [isBookOpened, setIsBookOpened] = useState(false)
@@ -91,6 +121,7 @@ function App() {
   const sections = [
     { id: 'cover', name: 'Welcome 💌', component: <CoverPage onOpenComplete={() => setIsBookOpened(true)} /> },
     { id: 'polaroids', name: 'Memories 📌', component: <PolaroidBoard /> },
+    { id: 'story', name: 'Our Story 📖', component: <FlipBook /> },
     { id: 'flowers', name: 'Bouquet 🌸', component: <BouquetBuilder /> },
     { id: 'sweets', name: 'Sweets 🍫', component: <ChocolateTeddyBox /> },
     { id: 'quiz', name: 'Love Quiz 🎮', component: <LoveQuiz /> },
@@ -107,9 +138,9 @@ function App() {
   return (
     <div className="relative min-h-screen bg-grid-paper selection:bg-pink-100 selection:text-pink-500">
       
-      {/* Heart Cursor Follower for Desktop */}
-      <HeartCursorTrail />
-
+      {/* Cute Cursor Follower for Desktop */}
+      <CuteCursorTrail />
+ 
       {/* PARALLAX FLOATING DECORATIONS */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Soft pastel blobs floating around */}
@@ -124,6 +155,20 @@ function App() {
         <motion.div 
           style={{ y: yParallax1 }}
           className="absolute bottom-[10%] left-[5%] w-[300px] h-[300px] rounded-full bg-purple-100/30 filter blur-3xl"
+        />
+
+        {/* Floating parallax sunflowers */}
+        <FloatingSunflower
+          style={{ y: yParallax1 }}
+          className="absolute top-[18%] left-[8%]"
+        />
+        <FloatingSunflower
+          style={{ y: yParallax2 }}
+          className="absolute top-[52%] right-[12%]"
+        />
+        <FloatingSunflower
+          style={{ y: yParallax1 }}
+          className="absolute bottom-[22%] left-[12%]"
         />
 
         {/* Hand drawn SVG decorations floating */}

@@ -9,6 +9,11 @@
   --color-pastel-blue: #d4f0fc;
   --color-pastel-green: #e2f7df;
   --color-pastel-purple: #ebdcf9;
+  --color-sunflower-yellow: #ffb300;
+  --color-sunflower-orange: #ffa000;
+  --color-sunflower-brown: #5d4037;
+  --color-warm-gold: #ffc107;
+  --color-warm-amber: #ffca28;
 }
 
 body {
@@ -85,6 +90,12 @@ body {
   background-size: 8px 8px;
 }
 
+.washi-tape-sunflower {
+  background: rgba(255, 213, 79, 0.85);
+  background-image: radial-gradient(rgba(93, 64, 55, 0.15) 20%, transparent 20%);
+  background-size: 10px 10px;
+}
+
 .washi-tape-green {
   background: rgba(210, 238, 208, 0.8);
 }
@@ -151,4 +162,22 @@ body {
 
 .animate-float-fast {
   animation: float 3s infinite ease-in-out;
+}
+
+/* Sunflower spinning animation */
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 20s infinite linear;
+}
+
+/* Handmade wiggle animation */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+.animate-wiggle {
+  animation: wiggle 4s infinite ease-in-out;
 }

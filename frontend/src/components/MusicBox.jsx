@@ -1,89 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Music, Play, Square, Heart, Sparkles } from 'lucide-react'
-
-// Procedural audio scheduler for a sweet, cute chime melody
-let audioCtx = null;
-let synthTimer = null;
-
-const playChimeMelody = (isPlaying, setIsPlaying) => {
-  if (!isPlaying) {
-    // Start Audio Context
-    if (!audioCtx) {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    }
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-
-    setIsPlaying(true);
-
-    // Chime Synth Melody Definition
-    // Notes: C Major -> G Major -> A Minor -> F Major arpeggios
-    const notes = [
-      261.63, 329.63, 392.00, 523.25, // C4, E4, G4, C5
-      293.66, 392.00, 493.88, 587.33, // D4, G4, B4, D5
-      220.00, 261.63, 329.63, 440.00, // A3, C4, E4, A4
-      174.61, 220.00, 261.63, 349.23  // F3, A3, C4, F4
-    ];
-
-    let index = 0;
-    const tempo = 220; // ms per note
-
-    const playNote = () => {
-      if (!audioCtx) return;
-
-      const osc = audioCtx.createOscillator();
-      const gainNode = audioCtx.createGain();
-      
-      // Use triangle wave for a soft woodwind/chime feel
-      osc.type = 'triangle'; 
-      osc.frequency.setValueAtTime(notes[index], audioCtx.currentTime);
-
-      // Cute filter for extra warmth
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(1000, audioCtx.currentTime);
-
-      // Envelope with soft attack and decay to resemble a music box chime
-      gainNode.gain.setValueAtTime(0.001, audioCtx.currentTime);
-      gainNode.gain.linearRampToValueAtTime(0.15, audioCtx.currentTime + 0.02);
-      gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
-
-      osc.connect(filter);
-      filter.connect(gainNode);
-      gainNode.connect(audioCtx.destination);
-
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.6);
-
-      index = (index + 1) % notes.length;
-      synthTimer = setTimeout(playNote, tempo);
-    };
-
-    playNote();
-  } else {
-    // Stop Synth
-    if (synthTimer) {
-      clearTimeout(synthTimer);
-      synthTimer = null;
-    }
-    setIsPlaying(false);
-  }
-};
 
 export const MusicBox = () => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isLetterOpen, setIsLetterOpen] = useState(false)
   const [confetti, setConfetti] = useState([])
   const [notesFloating, setNotesFloating] = useState([])
+  const audioRef = useRef(null)
 
-  // Cleanup audio timer on unmount
+  // Load audio on mount and cleanup on unmount
   useEffect(() => {
+    audioRef.current = new Audio('/Sufjan_Stevens_-_Mystery_of_Love_(mp3.pm).mp3');
+    audioRef.current.loop = true;
     return () => {
-      if (synthTimer) {
-        clearTimeout(synthTimer);
-        synthTimer = null;
+      if (audioRef.current) {
+        audioRef.current.pause();
       }
     };
   }, []);
@@ -100,7 +32,7 @@ export const MusicBox = () => {
             x: Math.random() * 100 - 50,
             y: Math.random() * -100 - 30,
             scale: Math.random() * 0.4 + 0.8,
-            symbol: ['🎵', '🎶', '✨', '♩', '💖'][Math.floor(Math.random() * 5)]
+            symbol: ['🎵', '🎶', '🌻', '✨', '💖'][Math.floor(Math.random() * 5)]
           }
         ]);
       }, 500);
@@ -111,18 +43,28 @@ export const MusicBox = () => {
   }, [isPlaying]);
 
   const toggleMusic = () => {
-    playChimeMelody(isPlaying, setIsPlaying);
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.current.play().catch((err) => {
+        console.error("Audio playback failed:", err);
+      });
+      setIsPlaying(true);
+    }
   };
 
   const triggerConfetti = () => {
-    // Spawn tons of hearts all over the screen!
-    const newConfetti = Array.from({ length: 40 }).map((_, i) => ({
+    // Spawn tons of hearts and sunflowers all over the screen!
+    const newConfetti = Array.from({ length: 45 }).map((_, i) => ({
       id: Date.now() + i,
       x: (Math.random() - 0.5) * window.innerWidth,
       y: (Math.random() - 0.5) * window.innerHeight,
       scale: Math.random() * 1.2 + 0.6,
       rotate: Math.random() * 360,
-      color: ['text-rose-400', 'text-pink-400', 'text-amber-400', 'text-purple-400'][Math.floor(Math.random() * 4)]
+      isSunflower: i % 2 === 0,
+      color: ['text-rose-400', 'text-pink-400', 'text-amber-450', 'text-purple-400'][Math.floor(Math.random() * 4)]
     }));
 
     setConfetti(newConfetti);
@@ -198,14 +140,14 @@ export const MusicBox = () => {
                 ))}
               </AnimatePresence>
 
-              <div className="font-pacifico text-xs text-[#8d6e63]/70">Lullaby Box</div>
+              <div className="font-pacifico text-xs text-[#8d6e63]/70">Mystery of Love</div>
             </div>
 
             <h3 className="font-cute text-lg font-bold text-stone-700 mt-4 select-none">
-              Chime Music Box
+              Sufjan Stevens 🎵
             </h3>
             <p className="font-handwritten text-lg text-stone-500 mt-1 select-none">
-              {isPlaying ? 'Melody is playing softly... 🎶' : 'Click play to start the chime!'}
+              {isPlaying ? 'Mystery of Love is playing... 🎶' : 'Click play to start our song!'}
             </p>
 
             <button
@@ -248,11 +190,12 @@ export const MusicBox = () => {
                 
                 <div className="space-y-4">
                   <motion.div
-                    animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ repeat: Infinity, duration: 2 }}
-                    className="w-14 h-14 rounded-full bg-rose-600/90 flex items-center justify-center text-white shadow-md mx-auto relative z-10"
+                    animate={{ scale: [1, 1.08, 1], rotate: [0, 5, -5, 0] }}
+                    transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+                    className="w-16 h-16 rounded-full bg-amber-500 hover:bg-amber-600 flex items-center justify-center text-white shadow-md mx-auto relative z-10 border-4 border-amber-600/80 font-bold"
+                    style={{ boxShadow: "0 4px 10px rgba(0,0,0,0.15), inset 0 0 4px rgba(0,0,0,0.2)" }}
                   >
-                    <Heart fill="currentColor" size={24} />
+                    <span className="text-2xl filter drop-shadow select-none">🌻</span>
                   </motion.div>
                   <h3 className="font-pacifico text-2xl text-stone-700">Sealed Letter</h3>
                   <p className="font-handwritten text-xl text-stone-500">
@@ -271,7 +214,11 @@ export const MusicBox = () => {
                 className="w-full bg-lined-paper border-stitch p-8 shadow-xl flex flex-col justify-between relative min-h-[400px]"
               >
                 {/* Washi tape holds scroll top */}
-                <div className="absolute washi-tape washi-tape-pink w-24 -top-3 left-1/2 -translate-x-1/2" />
+                <div className="absolute washi-tape washi-tape-sunflower w-24 -top-3 left-1/2 -translate-x-1/2" />
+
+                {/* Hand-drawn sunflower corner doodles */}
+                <div className="absolute bottom-4 left-6 text-yellow-500/20 text-3xl select-none pointer-events-none">🌻</div>
+                <div className="absolute top-4 right-6 text-yellow-500/20 text-3xl select-none pointer-events-none">🌻</div>
 
                 <div className="font-handwritten text-stone-700 text-2xl sm:text-3xl leading-relaxed space-y-4">
                   <p>My Dearest Sreeparna,</p>
@@ -328,7 +275,11 @@ export const MusicBox = () => {
                           }}
                           transition={{ duration: 2.2, ease: "easeOut" }}
                         >
-                          <Heart fill="currentColor" size={24} />
+                          {c.isSunflower ? (
+                            <span className="text-3xl select-none filter drop-shadow">🌻</span>
+                          ) : (
+                            <Heart fill="currentColor" size={24} />
+                          )}
                         </motion.div>
                       ))}
                     </div>

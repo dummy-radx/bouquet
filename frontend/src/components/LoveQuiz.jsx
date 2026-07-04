@@ -8,6 +8,7 @@ export const LoveQuiz = () => {
   const [quizFinished, setQuizFinished] = useState(false)
   const [lovePower, setLovePower] = useState(0)
   const [overload, setOverload] = useState(false)
+  const [confetti, setConfetti] = useState([])
 
   const quizQuestions = [
     {
@@ -29,6 +30,14 @@ export const LoveQuiz = () => {
       ]
     },
     {
+      question: "What flower shines as bright as Sreeparna's gorgeous smile? 🌻",
+      options: [
+        { text: "A regular old dandelion", correct: false, msg: "No way, she's much brighter!" },
+        { text: "Sunflowers! They are her favorite and match her radiant joy! 🌻✨", correct: true, msg: "YES! You are the absolute sunshine in my life, Sreeparna! 💛" },
+        { text: "A plastic rose", correct: false, msg: "Definitely not! She loves real, organic, handmade stuff!" }
+      ]
+    },
+    {
       question: "How much does Ishan love Sreeparna?",
       options: [
         { text: "To the moon and back 🌙", correct: false, msg: "That's way too short of a distance!" },
@@ -42,12 +51,26 @@ export const LoveQuiz = () => {
     setSelectedOption(option)
   }
 
+  const triggerConfetti = () => {
+    const newConfetti = Array.from({ length: 30 }).map((_, i) => ({
+      id: Date.now() + i,
+      x: (Math.random() - 0.5) * 350,
+      y: (Math.random() - 0.5) * 200 - 80,
+      scale: Math.random() * 0.8 + 0.6,
+      rotate: Math.random() * 360,
+      isSunflower: i % 2 === 0
+    }))
+    setConfetti(newConfetti)
+    setTimeout(() => setConfetti([]), 3000)
+  }
+
   const handleNext = () => {
     setSelectedOption(null)
     if (currentQuestion < quizQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1)
     } else {
       setQuizFinished(true)
+      triggerConfetti()
     }
   }
 
@@ -169,13 +192,41 @@ export const LoveQuiz = () => {
               </AnimatePresence>
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center text-center py-8 space-y-6">
+            <div className="flex flex-col items-center justify-center text-center py-8 space-y-6 relative overflow-hidden">
+              {/* Confetti overlay for completion */}
+              <AnimatePresence>
+                {confetti.map((c) => (
+                  <motion.div
+                    key={c.id}
+                    className="absolute pointer-events-none"
+                    initial={{ x: 0, y: 50, scale: 0.1, opacity: 1 }}
+                    animate={{ 
+                      x: c.x, 
+                      y: c.y, 
+                      scale: c.scale, 
+                      opacity: 0,
+                      rotate: c.rotate 
+                    }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 2.5, ease: "easeOut" }}
+                  >
+                    {c.isSunflower ? (
+                      <span className="text-3xl select-none filter drop-shadow">🌻</span>
+                    ) : (
+                      <span className="text-2xl select-none filter drop-shadow">❤️</span>
+                    )}
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: [1, 1.2, 1] }}
-                className="text-pink-500"
+                className="text-pink-500 flex gap-2 items-center"
               >
-                <Heart fill="currentColor" size={64} className="animate-pulse" />
+                <span className="text-4xl animate-wiggle">🌻</span>
+                <Heart fill="currentColor" size={56} className="animate-pulse" />
+                <span className="text-4xl animate-wiggle">🌻</span>
               </motion.div>
               <h3 className="font-pacifico text-2xl text-pink-500 select-none">
                 You are amazing!
@@ -188,6 +239,7 @@ export const LoveQuiz = () => {
                   setQuizFinished(false)
                   setCurrentQuestion(0)
                   setSelectedOption(null)
+                  setConfetti([])
                 }}
                 className="px-6 py-2.5 rounded-xl border border-pink-200 text-pink-500 font-cute text-xs font-bold hover:bg-pink-50 cursor-pointer"
               >

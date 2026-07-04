@@ -46,11 +46,18 @@ const ChocolateSVG = ({ type }) => {
         <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
           {/* Cup */}
           <path d="M12 40 L16 48 L44 48 L48 40" fill="#ffe082" stroke="#ffb300" strokeWidth="1" />
-          {/* Octagonal/square candy shape */}
-          <rect x="14" y="14" width="32" height="28" rx="8" fill="#D84315" stroke="#BF360C" strokeWidth="1.5" />
-          <rect x="18" y="18" width="24" height="20" rx="4" fill="#FF8A65" />
-          {/* Nut on top */}
-          <ellipse cx="30" cy="28" rx="6" ry="4" fill="#A1887F" stroke="#8D6E63" strokeWidth="1" />
+          {/* Chocolate Sunflower petals */}
+          {Array.from({ length: 8 }).map((_, idx) => {
+            const angle = (idx * 360) / 8
+            return (
+              <g key={idx} transform={`rotate(${angle} 30 28)`}>
+                <path d="M30 14 C27 22, 33 22, 30 14Z" fill="#FFA000" stroke="#E65100" strokeWidth="1" />
+              </g>
+            )
+          })}
+          {/* Chocolate center */}
+          <circle cx="30" cy="28" r="8" fill="#5D4037" stroke="#3E2723" strokeWidth="1" />
+          <circle cx="30" cy="28" r="5" fill="#4E342E" strokeDasharray="1,1" stroke="#FFB300" strokeWidth="1" />
         </svg>
       )
     case 'raspberry':
@@ -102,6 +109,35 @@ const TeddyBearSVG = ({ isWaving }) => {
 
       {/* Head */}
       <circle cx="75" cy="60" r="30" fill="#A1887F" stroke="#8D6E63" strokeWidth="2" />
+
+      {/* Sunflower Crown on Head (Cute Handmade Detail) */}
+      <g transform="translate(51.5, 21.5) scale(0.25)">
+        {Array.from({ length: 8 }).map((_, idx) => {
+          const angle = (idx * 360) / 8
+          return (
+            <path key={idx} d="M50 15 C40 30, 60 30, 50 15Z" fill="#FFD54F" stroke="#FFA000" strokeWidth="2" transform={`rotate(${angle} 50 50)`} />
+          )
+        })}
+        <circle cx="50" cy="50" r="12" fill="#5D4037" stroke="#3E2723" strokeWidth="1" />
+      </g>
+      <g transform="translate(60, 14) scale(0.3)">
+        {Array.from({ length: 8 }).map((_, idx) => {
+          const angle = (idx * 360) / 8
+          return (
+            <path key={idx} d="M50 15 C40 30, 60 30, 50 15Z" fill="#FFD54F" stroke="#FFA000" strokeWidth="2" transform={`rotate(${angle} 50 50)`} />
+          )
+        })}
+        <circle cx="50" cy="50" r="12" fill="#5D4037" stroke="#3E2723" strokeWidth="1" />
+      </g>
+      <g transform="translate(73.5, 21.5) scale(0.25)">
+        {Array.from({ length: 8 }).map((_, idx) => {
+          const angle = (idx * 360) / 8
+          return (
+            <path key={idx} d="M50 15 C40 30, 60 30, 50 15Z" fill="#FFD54F" stroke="#FFA000" strokeWidth="2" transform={`rotate(${angle} 50 50)`} />
+          )
+        })}
+        <circle cx="50" cy="50" r="12" fill="#5D4037" stroke="#3E2723" strokeWidth="1" />
+      </g>
       {/* Snout */}
       <ellipse cx="75" cy="68" rx="14" ry="10" fill="#FFE0B2" stroke="#8D6E63" strokeWidth="1" />
       {/* Eyes */}
@@ -144,7 +180,7 @@ export const ChocolateTeddyBox = () => {
     { id: 'milk', name: 'Creamy Milk Truffle', msg: 'You make my heart melt just like rich milk chocolate! 🍫❤' },
     { id: 'dark', name: 'Dark Gold Nugget', msg: 'My love for you is deep and pure, and you are my absolute treasure! ✨💎' },
     { id: 'strawberry', name: 'Strawberry Swirl', msg: 'Every single second spent talking with you is sweet, fresh, and berry delightful! 🍓😍' },
-    { id: 'caramel', name: 'Rich Caramel Cup', msg: 'You make life so smooth, rich, and delicious! You are the sweet caramel to my days! 🍯🍯' },
+    { id: 'caramel', name: 'Sun-kissed Honey Caramel', msg: 'You make life so warm, bright, and sweet! You are the sunshine and honey caramel of my life! 🌻🍯' },
     { id: 'raspberry', name: 'Crimson Berry Heart', msg: 'My heart beats only for you, Sreeparna. You are my one and only! ❤️🌸' },
     { id: 'fudge', name: 'Honey Cocoa Fudge', msg: 'We stick together through thick and thin! You are my forever favorite person! 🧸💕' }
   ]
