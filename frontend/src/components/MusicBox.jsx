@@ -240,7 +240,7 @@ export const MusicBox = () => {
                 exit={{ scale: 0.9, opacity: 0 }}
                 whileHover={{ scale: 1.02 }}
                 onClick={() => setIsLetterOpen(true)}
-                className="w-full max-w-md aspect-[4/3] bg-[#fbf5e6] border-stitch p-6 shadow-lg flex flex-col items-center justify-center cursor-pointer select-none text-center relative group"
+                className="w-full max-w-md aspect-4/3 bg-[#fbf5e6] border-stitch p-6 shadow-lg flex flex-col items-center justify-center cursor-pointer select-none text-center relative group"
               >
                 {/* Vintage rolled scroll boundaries */}
                 <div className="absolute left-2 top-0 bottom-0 w-3 bg-[#e2d8c3] rounded-full border-r border-[#c2b69f]" />
@@ -293,7 +293,7 @@ export const MusicBox = () => {
                 <div className="flex flex-col items-center mt-8 space-y-3 pt-4 border-t border-stone-100">
                   <button
                     onClick={triggerConfetti}
-                    className="px-6 py-2.5 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-cute text-xs font-bold shadow hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="px-6 py-2.5 rounded-full bg-linear-to-r from-pink-500 to-rose-500 text-white font-cute text-xs font-bold shadow hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
                   >
                     <Heart fill="currentColor" size={12} /> Shower Hearts Confetti!
                   </button>

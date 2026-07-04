@@ -250,7 +250,7 @@ export const LoveQuiz = () => {
               
               {/* Colored charging overlay */}
               <motion.div 
-                className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-pink-300 to-pink-500 opacity-80"
+                className="absolute left-0 top-0 bottom-0 bg-linear-to-r from-pink-300 to-pink-500 opacity-80"
                 style={{ width: `${lovePower}%` }}
               />
 

@@ -92,7 +92,7 @@ export const PolaroidBoard = () => {
         className="relative w-full max-w-5xl h-[85vh] sm:h-[75vh] md:h-[70vh] border-stitch bg-[#fcfaf7] shadow-inner p-4 overflow-hidden"
       >
         {/* Corkboard texture details (little dots and scratches) */}
-        <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#b8860b_1px,transparent_1px)] [background-size:16px_16px]" />
+        <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#b8860b_1px,transparent_1px)] bg-size-[16px_16px]" />
 
         {/* DRAGGABLE POLAROIDS */}
         {items.map((item) => (
@@ -159,7 +159,7 @@ export const PolaroidBoard = () => {
         ))}
 
         {/* Small decorative drawings */}
-        <div className="absolute right-4 bottom-4 font-handwritten text-stone-400/80 text-xl pointer-events-none select-none select-none">
+        <div className="absolute right-4 bottom-4 font-handwritten text-stone-400/80 text-xl pointer-events-none select-none">
           Ishan ❤️ Sreeparna
         </div>
 

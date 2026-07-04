@@ -304,7 +304,7 @@ export const BouquetBuilder = () => {
             <button
               disabled={selectedFlowers.length === 0 || isWrapped}
               onClick={handleWrap}
-              className={`flex-[2] px-6 py-3 rounded-xl text-white font-cute text-sm font-bold shadow transition-all flex items-center justify-center gap-2 select-none ${
+              className={`flex-2 px-6 py-3 rounded-xl text-white font-cute text-sm font-bold shadow transition-all flex items-center justify-center gap-2 select-none ${
                 selectedFlowers.length === 0 || isWrapped
                   ? 'bg-stone-300 cursor-not-allowed shadow-none'
                   : 'bg-pink-500 hover:bg-pink-600 hover:scale-[1.02] active:scale-95 cursor-pointer'
@@ -317,7 +317,7 @@ export const BouquetBuilder = () => {
         </div>
 
         {/* WORKSPACE CANVAS SIDE (Right) */}
-        <div className="relative aspect-[4/5] bg-stone-50/50 border-stitch flex items-center justify-center overflow-hidden h-[500px]">
+        <div className="relative aspect-4/5 bg-stone-50/50 border-stitch flex items-center justify-center overflow-hidden h-[500px]">
           
           {/* Visual Canvas background - drawing table surface */}
           <div className="absolute inset-x-0 bottom-0 h-1/4 bg-[#f1ebd9] border-t border-[#dfd8c2] z-0 flex items-center justify-center shadow-inner">
@@ -395,8 +395,8 @@ export const BouquetBuilder = () => {
                 >
                   <div className="relative">
                     {/* Ribbon loops */}
-                    <div className="absolute -left-6 -top-3 w-6 h-6 border-2 border-inherit rounded-full rotate-[30deg] opacity-90" />
-                    <div className="absolute -right-6 -top-3 w-6 h-6 border-2 border-inherit rounded-full rotate-[-30deg] opacity-90" />
+                    <div className="absolute -left-6 -top-3 w-6 h-6 border-2 border-inherit rounded-full rotate-30 opacity-90" />
+                    <div className="absolute -right-6 -top-3 w-6 h-6 border-2 border-inherit rounded-full -rotate-30 opacity-90" />
                     <Heart className="text-white fill-white" size={14} />
                   </div>
                 </motion.div>
@@ -437,7 +437,7 @@ export const BouquetBuilder = () => {
                   initial={{ opacity: 0, scale: 0.5, y: 50, rotate: 10 }}
                   animate={{ opacity: 1, scale: 1, y: 0, rotate: -3 }}
                   transition={{ delay: 0.6, type: "spring" }}
-                  className="absolute bottom-4 left-6 z-50 w-[200px] bg-amber-50 border border-amber-200 p-4 rounded shadow-lg origin-bottom-left rotate-[-3deg]"
+                  className="absolute bottom-4 left-6 z-50 w-[200px] bg-amber-50 border border-amber-200 p-4 rounded shadow-lg origin-bottom-left -rotate-3"
                 >
                   <div className="w-10 h-3 absolute -top-1.5 left-1/2 -translate-x-1/2 washi-tape washi-tape-pink opacity-80" />
                   <p className="font-handwritten text-sm text-stone-700 leading-tight">

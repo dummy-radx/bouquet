@@ -79,7 +79,7 @@ export const CoverPage = ({ onOpenComplete }) => {
         </motion.div>
 
         {/* Envelope Area */}
-        <div className="relative w-full max-w-md aspect-[4/3] flex items-center justify-center">
+        <div className="relative w-full max-w-md aspect-4/3 flex items-center justify-center">
           
           <AnimatePresence>
             {!isRevealed ? (
